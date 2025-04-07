@@ -1,19 +1,29 @@
 # database.py
-
 import sqlite3
 import pandas as pd
+import logging
 
-def get_connection(db_file):
-    """Connect to the SQLite database and return the connection."""
-    conn = sqlite3.connect(db_file)
-    return conn
+def connect_db(db_path="database.db"):
+    try:
+        conn = sqlite3.connect(db_path)
+        return conn
+    except Exception as e:
+        logging.error(f"Error connecting to database: {e}")
+        raise
 
 def execute_query(conn, query):
-    """Execute a SQL query and return results as a DataFrame."""
-    return pd.read_sql_query(query, conn)
+    try:
+        df = pd.read_sql_query(query, conn)
+        return df
+    except Exception as e:
+        logging.error(f"Error executing query '{query}': {e}")
+        raise
 
 def list_tables(conn):
-    """List all tables in the SQLite database."""
-    query = "SELECT name FROM sqlite_master WHERE type='table';"
-    df = pd.read_sql_query(query, conn)
-    return df['name'].tolist()
+    try:
+        query = "SELECT name FROM sqlite_master WHERE type='table';"
+        df = pd.read_sql_query(query, conn)
+        return df['name'].tolist()
+    except Exception as e:
+        logging.error(f"Error listing tables: {e}")
+        raise

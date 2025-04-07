@@ -1,13 +1,15 @@
 # lll_integration.py
-
 def generate_sql_from_query(table_schema, user_query):
+    prompt = f"""
+    You are an AI assistant tasked with converting user queries into SQL statements.
+    The database uses SQLite and contains the following table schema:
+    {table_schema}
+    User Query: "{user_query}"
+    Please generate a valid SQL query and provide a short explanation.
     """
-    Simulate generating a SQL query from a natural language query.
-    Returns a dictionary with keys 'sql' and 'explanation'.
-    """
-    # For demonstration, we simulate the LLM response.
+    # For demonstration purposes, we simulate an LLM response.
     simulated_response = {
-        'sql': "SELECT * FROM sales WHERE sale_date >= '2025-04-01' LIMIT 5;",
-        'explanation': "This query retrieves the first 5 records from the 'sales' table starting from April 1, 2025."
+        'sql': "SELECT * FROM sales LIMIT 5;",
+        'explanation': "This query retrieves the first 5 records from the sales table."
     }
     return simulated_response

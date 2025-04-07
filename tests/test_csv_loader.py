@@ -1,5 +1,4 @@
 # tests/test_csv_loader.py
-
 import sqlite3
 import pandas as pd
 import tempfile
@@ -11,16 +10,16 @@ def test_load_csv_to_sqlite(tmp_path):
     csv_file = tmp_path / "test.csv"
     csv_file.write_text(csv_content)
 
-    # Create a temporary SQLite database
-    db_path = tmp_path / "test.db"
-    conn = sqlite3.connect(str(db_path))
+    # Create a temporary SQLite database file
+    db_file = tmp_path / "test.db"
     
-    # Load CSV into SQLite
-    df, create_table_sql = load_csv_to_sqlite(str(csv_file), conn, table_name="test_table")
-    
-    # Verify that the table was created and data inserted
-    result_df = pd.read_sql_query("SELECT * FROM test_table", conn)
+    # Load CSV into the SQLite database
+    load_csv_to_sqlite(str(csv_file), str(db_file), table_name="test_table")
+
+    # Connect to the database and verify table contents
+    conn = sqlite3.connect(str(db_file))
+    df = pd.read_sql_query("SELECT * FROM test_table", conn)
     conn.close()
-    
-    assert len(result_df) == 2
-    assert list(result_df.columns) == ["col1", "col2"]
+
+    assert len(df) == 2
+    assert list(df.columns) == ["col1", "col2"]

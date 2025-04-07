@@ -1,14 +1,10 @@
 # schema_inference.py
-
-def infer_sqlite_schema(df, table_name):
-    """
-    Infer the SQLite schema from a DataFrame and return a CREATE TABLE SQL statement.
-    """
+def infer_sqlite_schema(df, table_name="my_table"):
     type_mapping = {
         'object': 'TEXT',
         'int64': 'INTEGER',
         'float64': 'REAL',
-        'bool': 'INTEGER',  # SQLite does not have a native Boolean type.
+        'bool': 'INTEGER',  # SQLite does not have a dedicated Boolean type
         'datetime64[ns]': 'TEXT'
     }
     schema_parts = []
