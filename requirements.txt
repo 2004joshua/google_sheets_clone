@@ -1,3 +1,4 @@
 pandas
 pytest
 python-dotenv
+openai
