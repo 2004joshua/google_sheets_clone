@@ -1,3 +1,14 @@
 /projvenv
 /csv
 /.env
+/error_log.txt
+/database.db
+/.DS_Store
+/.idea
+/.vscode
+/.pytest_cache
+/.mypy_cache
+/.coverage
+/.coverage.*
+/.pytest_cache
+/.mypy_cache
